@@ -23,16 +23,17 @@ body {
     font-weight: 600;
 }
 
-.form {
+form {
     position: relative;
-    margin-left: 10%;
-    width: 80%;
+    margin-left: 12%;
+    width: 75%;
     background-color: hotpink;
     padding: 20px;
     text-align: center;
     font-size: 30px;
     border-radius: 20px;
 }
+
 .form-text {
     color: white;
     font-weight: 500;
@@ -45,6 +46,23 @@ input {
     padding-right: 50px;
     background-color: white;
     border-radius: 20px;
+}
+
+.left, .right {
+    width: 170px;
+    height: 400px;
+    padding: 10px;
+    margin-top: 50px;
+}
+
+.left {
+    position: absolute;
+    left: 0;
+}
+
+.right {
+    position: absolute;
+    right: 0;
 }
 
 .final {
