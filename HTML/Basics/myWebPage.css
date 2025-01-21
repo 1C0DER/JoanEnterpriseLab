@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(225, 153, 217);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.header {
+    font-size: 40px;
+    padding: 25px;
+    text-align: center;
+}
+
+.question {
+    font-size: 34px;
+    padding: 15px;
+    padding-bottom: 80px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.form {
+    position: relative;
+    margin-left: 10%;
+    width: 80%;
+    background-color: hotpink;
+    padding: 20px;
+    text-align: center;
+    font-size: 30px;
+    border-radius: 20px;
+}
+.form-text {
+    color: white;
+    font-weight: 500;
+}
+
+input {
+    margin-top: 20px;
+    padding: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.final {
+    font-weight: 600;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+}
