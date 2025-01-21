@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: rgb(225, 153, 217);
+    background-color: rgb(157, 203, 147);
     font-family: 'Courier New', Courier, monospace;
 }
 
@@ -27,7 +27,7 @@ form {
     position: relative;
     margin-left: 12%;
     width: 75%;
-    background-color: hotpink;
+    background-color: rgb(30, 114, 28);
     padding: 20px;
     text-align: center;
     font-size: 30px;
