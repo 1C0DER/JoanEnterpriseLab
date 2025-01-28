@@ -6,43 +6,51 @@
   <link href="/HTML/Basics/myWebPage.css" rel="stylesheet" />
 </head>
 <body>
-
-<div>
-  <h1 class="header">How much to charge?</h1>
-  <p class="question">If you were a freelance web designer, how much should you charge for a website? Fill out the form and find out!</p>
-</div>
-
-<div class="form">
-
   <img class="left" src="/dolla.png" alt="">
-  <img class="right" src="/dolla.png" alt="">
+  <img  class="right" src="/dolla.png" alt="">
 
-  <form id="budget" action="javascript:calculatePrice()">
-    <label class="form-text" for="salary">What annual salary seems suitable for you?</label>
-    <br>
-    <input class="blank" type="text" id="salary" name="salary"/><br><br>
-    <label class="form-text" for="days">How many days do you think it will take you to make the website?</label>
-    <br>
-    <input class="blank" type="text" id="days" name="days"/><br><br>
-    <input class="final" type="submit" value="Calculate your price!"><br><br>
-    <label id="finalPrice"> ??? </label>
-  </form>
-</div>
+  <h1>Daily Rate Calculator</h1>
+  <label for="salary">Enter Annual Salary (£):</label>
+  <input type="number" id="salary" placeholder="Default: £40,000" />
+  <br /><br />
+  
+  <label for="days">Enter Number of Days:</label>
+  <input type="number" id="days" placeholder="e.g., 10" />
+  <br /><br />
 
+  <label for="rounding">Round to:</label>
+  <select id="rounding">
+    <option value="50">Nearest £50</option>
+    <option value="100">Nearest £100</option>
+  </select>
+  <br /><br />
 
-<script>
-  function calculatePrice() {
-    var s = document.getElementById("salary").value;
-    var d = document.getElementById("days").value;
-    console.log("Calculating price")
-    console.log(s)
-    console.log(d)
-    let finalPrice = 0;
-    dailyRate = s/365;
-    finalPrice = dailyRate * d;
-    document.getElementById("finalPrice").innerHTML = finalPrice;
-  }
+  <button onclick="calculatePrice()">Calculate</button>
+  <h2>Final Price: £<span id="finalPrice">0</span></h2>
+
+  <script>
+    function calculatePrice() {
+      var s = document.getElementById("salary").value || 40000; // Default salary: £40,000
+      var d = document.getElementById("days").value;
+      var rounding = document.getElementById("rounding").value;
+
+      console.log("Calculating price...");
+      console.log("Salary:", s);
+      console.log("Days:", d);
+
+      if (!d || d <= 0) {
+        alert("Please enter a valid number of days.");
+        return;
+      }
+
+      let dailyRate = s / 365;
+      let finalPrice = dailyRate * d;
+
+      // Round the final price to the nearest £50 or £100
+      finalPrice = Math.round(finalPrice / rounding) * rounding;
+
+      document.getElementById("finalPrice").innerHTML = finalPrice;
+    }
   </script>
-
 </body>
 </html>

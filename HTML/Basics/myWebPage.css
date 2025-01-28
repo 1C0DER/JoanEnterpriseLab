@@ -7,45 +7,7 @@
 body {
     background-color: rgb(157, 203, 147);
     font-family: 'Courier New', Courier, monospace;
-}
-
-.header {
-    font-size: 40px;
-    padding: 25px;
-    text-align: center;
-}
-
-.question {
-    font-size: 34px;
-    padding: 15px;
-    padding-bottom: 80px;
-    text-align: center;
-    font-weight: 600;
-}
-
-form {
-    position: relative;
-    margin-left: 12%;
-    width: 75%;
-    background-color: rgb(30, 114, 28);
     padding: 20px;
-    text-align: center;
-    font-size: 30px;
-    border-radius: 20px;
-}
-
-.form-text {
-    color: white;
-    font-weight: 500;
-}
-
-input {
-    margin-top: 20px;
-    padding: 15px;
-    padding-left: 50px;
-    padding-right: 50px;
-    background-color: white;
-    border-radius: 20px;
 }
 
 .left, .right {
@@ -65,8 +27,64 @@ input {
     right: 0;
 }
 
-.final {
-    font-weight: 600;
+h1 {
+    font-size: 40px;
+    text-align: center;
+    color: rgb(30, 114, 28);
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 24px;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+input, select {
+    display: block;
+    width: 60%;
+    margin: 10px auto 20px auto;
+    padding: 15px;
+    font-size: 18px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+input[type="number"]::placeholder {
+    color: grey;
+}
+
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 15px 30px;
     font-size: 20px;
-    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(30, 114, 28);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: rgb(25, 95, 25);
+}
+
+h2 {
+    font-size: 28px;
+    text-align: center;
+    color: rgb(30, 114, 28);
+    margin-top: 20px;
+}
+
+span {
+    font-weight: bold;
+    color: white;
 }
