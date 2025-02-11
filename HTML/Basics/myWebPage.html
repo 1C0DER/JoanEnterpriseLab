@@ -7,9 +7,10 @@
 </head>
 <body>
   <img class="left" src="/dolla.png" alt="">
-  <img  class="right" src="/dolla.png" alt="">
+  <img class="right" src="/dolla.png" alt="">
 
   <h1>Daily Rate Calculator</h1>
+  
   <label for="salary">Enter Annual Salary (£):</label>
   <input type="number" id="salary" placeholder="Default: £40,000" />
   <br /><br />
@@ -25,10 +26,18 @@
   </select>
   <br /><br />
 
+  <!-- New input for the quote name -->
+  <label for="quoteName">Quote Name:</label>
+  <input type="text" id="quoteName" placeholder="Enter quote name" />
+  <br /><br />
+
   <button onclick="calculatePrice()">Calculate</button>
+  <!-- New button to call the API function to store the quote -->
+  <button onclick="storeQuote()">Store Quote</button>
   <h2>Final Price: £<span id="finalPrice">0</span></h2>
 
   <script>
+    // Existing price calculation function
     function calculatePrice() {
       var s = document.getElementById("salary").value || 40000; // Default salary: £40,000
       var d = document.getElementById("days").value;
@@ -46,10 +55,45 @@
       let dailyRate = s / 365;
       let finalPrice = dailyRate * d;
 
-      // Round the final price to the nearest £50 or £100
+      // Round the final price to the selected rounding value
       finalPrice = Math.round(finalPrice / rounding) * rounding;
 
-      document.getElementById("finalPrice").innerHTML = finalPrice;
+      document.getElementById("finalPrice").innerText = finalPrice;
+    }
+
+    // New function to store the quote using the backend API
+    function storeQuote() {
+      var quoteName = document.getElementById("quoteName").value;
+      var salary = document.getElementById("salary").value || 40000;
+      var days = document.getElementById("days").value;
+      var finalPrice = document.getElementById("finalPrice").innerText;
+
+      if (!quoteName) {
+        alert("Please enter a quote name.");
+        return;
+      }
+
+      // Log the details to the console for debugging
+      console.log("Storing quote:");
+      console.log("Quote Name:", quoteName);
+      console.log("Salary:", salary);
+      console.log("Days:", days);
+      console.log("Final Price:", finalPrice);
+
+      // Call the backend API endpoint '/api/storeQuote' using a GET request
+      // Here we send the quote details as query parameters.
+      fetch('/api/storeQuote?quoteName=' + encodeURIComponent(quoteName) +
+            '&salary=' + encodeURIComponent(salary) +
+            '&days=' + encodeURIComponent(days) +
+            '&finalPrice=' + encodeURIComponent(finalPrice))
+        .then(response => response.text())
+        .then(data => {
+          console.log("Response from server:", data);
+          alert("Server response: " + data);
+        })
+        .catch(error => {
+          console.error("Error calling API:", error);
+        });
     }
   </script>
 </body>

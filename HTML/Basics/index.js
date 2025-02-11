@@ -42,3 +42,22 @@ app.use(function ( req, res, next) {
 app.listen(8000, function () {
     console.log('Listening on http://localhost:8000/');
 });
+
+// Add this new API endpoint alongside your other routes
+app.get('/api/storeQuote', function(req, res) {
+    // Retrieve the query parameters
+    var quoteName = req.query.quoteName;
+    var salary = req.query.salary;
+    var days = req.query.days;
+    var finalPrice = req.query.finalPrice;
+
+    // Log the received details to the console
+    console.log("Received quote store request:");
+    console.log("Quote Name:", quoteName);
+    console.log("Salary:", salary);
+    console.log("Days:", days);
+    console.log("Final Price:", finalPrice);
+
+    // For now, simply return the quote name as a response
+    res.send("Quote '" + quoteName + "' stored successfully.");
+});
