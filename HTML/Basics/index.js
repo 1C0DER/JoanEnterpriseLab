@@ -4,32 +4,16 @@ var app = express();
 
 // MongoDB Client setup
 const { MongoClient } = require("mongodb");
-const uri = process.env.DBURI || "mongodb://test:password@127.0.0.1:27017/mydb";  // Use environment variable or default
-const client = new MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+const uri = "mongodb://test:password@127.0.0.1:27017/mydb";  // Assuming no username or password for simplicity
 
-// Persist connection across requests
-let dbConnection;
+// Create a new MongoClient
+const client = new MongoClient(uri);
 
-async function connectToMongo() {
-    if (!dbConnection) {
-        try {
-            await client.connect();
-            dbConnection = client.db("mydb");  // Database name
-            console.log("Connected to database");
-        } catch (err) {
-            console.error("Could not connect to DB: ", err);
-        }
-    }
-    return dbConnection;
-}
-
-var dir = path.join(__dirname);
 var options = {
     index: "myWebPage.html"
 };
+
+var dir = path.join(__dirname);
 
 app.use(express.static(dir, options));
 
@@ -40,6 +24,10 @@ app.get('/api', function(req, res){
 app.get('/api/getPrice', function(req, res){
     var s = req.query.salary;
     var d = req.query.days;
+    console.log("Calculating price");
+    console.log(s);
+    console.log(d);
+    let finalPrice = 0;
     let dailyRate = s / 365;
     let price = Math.round(dailyRate * d);
     let roundToNearest = 50;
@@ -47,28 +35,41 @@ app.get('/api/getPrice', function(req, res){
     res.send("" + roundedPrice);
 });
 
+// Updated /api/storeQuote endpoint to store data in MongoDB
 app.get('/api/storeQuote', async function(req, res) {
     var quoteName = req.query.quoteName;
-    var salary = parseInt(req.query.salary);
-    var days = parseInt(req.query.days);
-    var finalPrice = parseInt(req.query.finalPrice);
+    var salary = req.query.salary;
+    var days = req.query.days;
+    var finalPrice = req.query.finalPrice;
+
+    console.log("Received quote store request:");
+    console.log("Quote Name:", quoteName);
+    console.log("Salary:", salary);
+    console.log("Days:", days);
+    console.log("Final Price:", finalPrice);
 
     try {
-        const db = await connectToMongo();
-        const quotes = db.collection("quotes");
+        await client.connect();
+        console.log("Connected to database");
+        const database = client.db("mydb");  // Database name
+        const quotes = database.collection("quotes");  // Collection name
 
+        // Create a document to insert
         const doc = {
             quoteName: quoteName,
-            salary: salary,
-            days: days,
-            finalPrice: finalPrice
+            salary: parseInt(salary),
+            days: parseInt(days),
+            finalPrice: parseInt(finalPrice)
         };
 
         const result = await quotes.insertOne(doc);
+        console.log(`A document was inserted with the _id: ${result.insertedId}`);
         res.send(`Quote '${quoteName}' stored successfully with ID: ${result.insertedId}`);
     } catch (err) {
         console.error(err);
         res.status(500).send("Error storing the quote");
+    } finally {
+        await client.close();
     }
 });
 
@@ -76,7 +77,6 @@ app.use(function(req, res, next) {
     res.status(404).send('This page does not exist!');
 });
 
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, function () {
-    console.log(`Listening on http://localhost:${PORT}/`);
+app.listen(8000, function () {
+    console.log('Listening on http://localhost:8000/');
 });
