@@ -4,7 +4,7 @@ var app = express();
 
 // MongoDB Client setup
 const { MongoClient } = require("mongodb");
-const uri = "mongodb://127.0.0.1:27017";  // Assuming no username or password for simplicity
+const uri = "mongodb://test:password@127.0.0.1:27017/mydb";  // Assuming no username or password for simplicity
 
 // Create a new MongoClient
 const client = new MongoClient(uri);
