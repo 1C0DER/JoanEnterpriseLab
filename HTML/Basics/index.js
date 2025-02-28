@@ -73,6 +73,8 @@ app.get('/api/storeQuote', async function(req, res) {
     }
 });
 
+app.use(express.static(dir, options));
+
 app.use(function(req, res, next) {
     res.status(404).send('This page does not exist!');
 });
